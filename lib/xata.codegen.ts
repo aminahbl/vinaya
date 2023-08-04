@@ -6,7 +6,25 @@ import type {
   XataRecord,
 } from "@xata.io/client";
 
-const tables = [{ name: "rules_bi", columns: [] }] as const;
+const tables = [
+  {
+    name: "rules_bi",
+    columns: [
+      { name: "title", type: "string" },
+      { name: "category", type: "link", link: { table: "categories" } },
+      { name: "rule", type: "text" },
+      { name: "imgId", type: "string" },
+    ],
+  },
+  {
+    name: "categories",
+    columns: [
+      { name: "name", type: "string" },
+      { name: "position", type: "int" },
+    ],
+    revLinks: [{ column: "category", table: "rules_bi" }],
+  },
+] as const;
 
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
@@ -14,19 +32,17 @@ export type InferredTypes = SchemaInference<SchemaTables>;
 export type RulesBi = InferredTypes["rules_bi"];
 export type RulesBiRecord = RulesBi & XataRecord;
 
+export type Categories = InferredTypes["categories"];
+export type CategoriesRecord = Categories & XataRecord;
+
 export type DatabaseSchema = {
   rules_bi: RulesBiRecord;
+  categories: CategoriesRecord;
 };
 
 const DatabaseClient = buildClient();
 
-// const defaultOptions = {
-//   databaseURL: "https://owili-iodq2k.eu-central-1.xata.sh/db/vinaya",
-// };
-
 const defaultOptions = {
-  enableBrowser: true,
-  apiKey: process.env.NEXT_PUBLIC_XATA_API_KEY,
   databaseURL: "https://owili-iodq2k.eu-central-1.xata.sh/db/vinaya",
 };
 

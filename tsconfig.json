@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@xata": ["./lib/xata.codegen.ts"]
+      "@xata": ["./lib/xata.codegen.ts"],
+      "@xataclient": ["./lib/xataclient.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "data/init.cjs"],
