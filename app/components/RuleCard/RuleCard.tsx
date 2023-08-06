@@ -11,9 +11,8 @@ const RuleCard = ({ rule }: { rule: any }) => {
 
   return (
     <article className={styles.card}>
-      <Link href={`/rule/${rule.id}`}>
+      <Link href={`/pm/${rule.id}`}>
         <h2>{title}</h2>
-        {/* <pre>{JSON.stringify(rule, null, 2)}</pre> */}
         <div className={styles.imgWrapper}>
           {
             <IKImage
