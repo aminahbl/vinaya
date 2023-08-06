@@ -1,7 +1,5 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Dev
-
 ### Getting Started
 
 First, run the development server:
@@ -17,13 +15,48 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 
-### Dev [TODO]
+### Dev notes
 
-Image service: imagekit.io
+#### Sources
+
+#### Data
+
+Source of truth: `data/json` files
+
+Data updates can be sent to the database with `npm run tsx data/data-to-xata.ts`
+
+##### Rule id anatomy: 
+
+Adapted from SuttaCentral ids.
+
+- **anatomy:** 
+    `{root lang}-{tradition}-{rule set}-{rule category #}-{category prefix + rule number}` 
+- **example**: `pli-tv-bi-1-pj001`
+- **example expantion**:
+    | Part              | Value     |
+    | ----------------- | --------- |
+    | lang              | Pali      |
+    | tradition         | Theravada |
+    | rule set          | bhikkhuni |
+    | rule category no. | 1         |
+    | category prefix   |           |
+    | & rule # with     | pj001     |
+    | trailing zeros    |           |
+
+
+#### Services
+
+| Name     | Service                                             |
+| -------- | --------------------------------------------------- |
+| Xata     | Database                                            |
+| ImageKit | Image hosting, optimization                         |
+|          | (in conjuction with `next/image`) & transformations |
+| Prisma   | Site hosting                                        |
 
 
 
-### Learn More
+
+### Learn More about Next.js
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -39,4 +72,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-## Project sources

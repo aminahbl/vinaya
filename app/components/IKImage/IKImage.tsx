@@ -7,13 +7,6 @@ interface LoaderProps {
   src: string;
 }
 
-/**
- * Generates a URL with ImageKit transformation parameters and a signature
- * for the provided source image URL.
- *
- * - The `src` prop is built of transformation params and image location. eg. "tr:w-800:q-75/pli-tv-bi-vb/np001.png".
- * - The return is the full image URL with a signature. eg. "https://ik.imagekit.io/tvm15igl7/tr:w-800:q-75/pli-tv-bi-vb/np001.png?ik-t=1691273508&ik-s=API_KEY"
- */
 function imageKitLoader({ src }: LoaderProps) {
   
   const srcParts = src.split("/");
