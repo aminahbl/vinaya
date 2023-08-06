@@ -1,0 +1,1 @@
+export { default as IKImage } from "./IKImage/IKImage";

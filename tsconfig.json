@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@components": ["./app/components/"],
       "@xata": ["./lib/xata.codegen.ts"],
       "@xataclient": ["./lib/xataclient.ts"]
     }
