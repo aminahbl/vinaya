@@ -21,9 +21,22 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 #### Data
 
-Source of truth: `data/json` files
+(At least during development) project data lives in `data/v0/json/db_*` files and is taken a s the source of truth.
 
-Data updates can be sent to the database with `npm run tsx data/data-to-xata.ts`
+The data schema is also primarily maintained in `data/v0/json/xata_schema.json`, but there the Xata CLI [`schema` commands](https://xata.io/docs/getting-started/cli#schema) allow two way maintanence between raw json and the database. To update from json:
+
+```sh
+xata schema upload data/v0/json/xata_schema.json
+```
+
+
+
+
+Data updates can be sent to the database with:
+
+```sh
+npm run data-to-xata
+```
 
 ##### Rule id anatomy: 
 

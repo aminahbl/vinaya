@@ -8,36 +8,78 @@ import type {
 
 const tables = [
   {
-    name: "rules_bi",
+    name: "pli_tv_pm_bi_rules",
     columns: [
       { name: "title", type: "string" },
-      { name: "category", type: "link", link: { table: "categories" } },
+      {
+        name: "category",
+        type: "link",
+        link: { table: "pli_tv_pm_categories" },
+      },
       { name: "rule", type: "text" },
       { name: "imgId", type: "string" },
     ],
+    revLinks: [{ column: "ruleId", table: "pli_tv_pm_bi_translations" }],
   },
   {
-    name: "categories",
+    name: "pli_tv_pm_categories",
     columns: [
-      { name: "name", type: "string" },
+      { name: "title", type: "string" },
       { name: "position", type: "int" },
     ],
-    revLinks: [{ column: "category", table: "rules_bi" }],
+    revLinks: [{ column: "category", table: "pli_tv_pm_bi_rules" }],
+  },
+  {
+    name: "pli_tv_pm_bi_translations",
+    columns: [
+      { name: "translator", type: "link", link: { table: "translators" } },
+      { name: "ruleId", type: "link", link: { table: "pli_tv_pm_bi_rules" } },
+      { name: "translation", type: "text" },
+      { name: "language", type: "link", link: { table: "languages" } },
+    ],
+  },
+  {
+    name: "translators",
+    columns: [
+      { name: "name", type: "string" },
+      { name: "displayName", type: "string" },
+    ],
+    revLinks: [{ column: "translator", table: "pli_tv_pm_bi_translations" }],
+  },
+  {
+    name: "languages",
+    columns: [
+      { name: "language", type: "string" },
+      { name: "localName", type: "string" },
+    ],
+    revLinks: [{ column: "language", table: "pli_tv_pm_bi_translations" }],
   },
 ] as const;
 
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type RulesBi = InferredTypes["rules_bi"];
-export type RulesBiRecord = RulesBi & XataRecord;
+export type PliTvPmBiRules = InferredTypes["pli_tv_pm_bi_rules"];
+export type PliTvPmBiRulesRecord = PliTvPmBiRules & XataRecord;
 
-export type Categories = InferredTypes["categories"];
-export type CategoriesRecord = Categories & XataRecord;
+export type PliTvPmCategories = InferredTypes["pli_tv_pm_categories"];
+export type PliTvPmCategoriesRecord = PliTvPmCategories & XataRecord;
+
+export type PliTvPmBiTranslations = InferredTypes["pli_tv_pm_bi_translations"];
+export type PliTvPmBiTranslationsRecord = PliTvPmBiTranslations & XataRecord;
+
+export type Translators = InferredTypes["translators"];
+export type TranslatorsRecord = Translators & XataRecord;
+
+export type Languages = InferredTypes["languages"];
+export type LanguagesRecord = Languages & XataRecord;
 
 export type DatabaseSchema = {
-  rules_bi: RulesBiRecord;
-  categories: CategoriesRecord;
+  pli_tv_pm_bi_rules: PliTvPmBiRulesRecord;
+  pli_tv_pm_categories: PliTvPmCategoriesRecord;
+  pli_tv_pm_bi_translations: PliTvPmBiTranslationsRecord;
+  translators: TranslatorsRecord;
+  languages: LanguagesRecord;
 };
 
 const DatabaseClient = buildClient();
