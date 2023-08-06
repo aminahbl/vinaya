@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image, { type ImageProps } from "next/image";
 import crypto from "crypto";
@@ -8,14 +8,13 @@ interface LoaderProps {
 }
 
 function imageKitLoader({ src }: LoaderProps) {
-  
   const srcParts = src.split("/");
   const params = srcParts[0];
   const transformationPath = `${params}/${srcParts.slice(1).join("/")}`;
 
-
-
-  const imgUrl = `${process.env.NEXT_PUBLIC_IMAGEKIT_ROOT_URL ?? ""}/${transformationPath}`;
+  const imgUrl = `${
+    process.env.NEXT_PUBLIC_IK_ROOT_URL ?? ""
+  }/${transformationPath}`;
 
   const expiryTimestamp =
     parseInt((new Date().getTime() / 1000).toString(), 10) + 999999;
