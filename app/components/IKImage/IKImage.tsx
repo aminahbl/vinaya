@@ -35,7 +35,7 @@ interface IKImageProps extends ImageProps {
  *
  * - The `src` prop is built of transformation params and image location. eg. "tr:w-800:q-75/pli-tv-bi-vb/np001.png".
  */
-const IKImage = async (props: IKImageProps) => {
+const IKImage = (props: IKImageProps) => {
   const { src: path, alt, width, height, ...rest } = props;
 
   const imgSrc = useMemo(() => getIKImgSrc(path), [path]);

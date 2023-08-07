@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "data-to-xata": "tsx data/data-to-xata.ts"
+    "data-to-xata": "tsx data/data-to-xata.ts", 
+    "upload-schema": "xata schema upload data/v0/json/xata_schema.json"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.5",

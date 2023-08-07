@@ -37,4 +37,4 @@ next-env.d.ts
 
 .env
 
-xataclient.ts
+data-to-xata.ts
