@@ -1,6 +1,8 @@
+import { HomeOutlined } from '@ant-design/icons';
 import { getXataClient } from "@xata";
 import { IKImage } from "@components";
 import styles from "./page.module.css";
+import Link from 'next/link';
 
 const xata = getXataClient();
 
@@ -25,7 +27,12 @@ export default async function Page({ params }: any) {
 
   const translations = await xata.db.pli_tv_pm_bi_translations
     .filter({ ruleId: id, language: "en" })
-    .select(["translation", "translator.id", "translator.displayName", "language.id"])
+    .select([
+      "translation",
+      "translator.id",
+      "translator.displayName",
+      "language.id",
+    ])
     .getAll();
 
   const translationsMap = new Map(
@@ -45,22 +52,28 @@ export default async function Page({ params }: any) {
   const src = `tr:w-1100,h-800,fo-auto/${process.env.NEXT_PUBLIC_IK_PM_BI_DIR}/${imgId}.png`;
 
   return (
-    <main className={styles.main}>
-      <hgroup className={styles.hgroup}>
-        <h1>{title}</h1>
-      </hgroup>
-      <div className={styles.meta}>
-      <small>Translator: {content.translator}</small>
-      </div>
-      <div className={styles.description}>
-        <p>{content.translation}</p>
-      </div>
-      <div>
-        <div className={styles.imgWrapper}>
-          <IKImage src={src} width={1100} height={800} alt="np002.png" />
+    <>
+    <nav className={styles.nav}>
+      <Link href="/"> <HomeOutlined style={{ fontSize: 36, color: "#606" }} /></Link>
+     
+    </nav>
+      <main className={styles.main}>
+        <hgroup className={styles.hgroup}>
+          <h1>{title}</h1>
+        </hgroup>
+        <div className={styles.meta}>
+          <small>Translator: {content.translator}</small>
         </div>
-      </div>
-      <p>{ruleText}</p>
-    </main>
+        <div className={styles.description}>
+          <p>{content.translation}</p>
+        </div>
+        <div>
+          <div className={styles.imgWrapper}>
+            <IKImage src={src} width={1100} height={800} alt="np002.png" />
+          </div>
+        </div>
+        <p>{ruleText}</p>
+      </main>
+    </>
   );
 }
