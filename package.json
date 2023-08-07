@@ -9,9 +9,9 @@
     "lint": "next lint",
     "data-to-xata": "tsx data/data-to-xata.ts"
   },
-  "type": "module",
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
+    "@tanstack/react-query": "^4.32.6",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
