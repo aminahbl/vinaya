@@ -18,8 +18,22 @@ const tables = [
       },
       { name: "rule", type: "text" },
       { name: "imgId", type: "string" },
+      {
+        name: "nextRuleId",
+        type: "link",
+        link: { table: "pli_tv_pm_bi_rules" },
+      },
+      {
+        name: "prevRuleId",
+        type: "link",
+        link: { table: "pli_tv_pm_bi_rules" },
+      },
     ],
-    revLinks: [{ column: "ruleId", table: "pli_tv_pm_bi_translations" }],
+    revLinks: [
+      { column: "ruleId", table: "pli_tv_pm_bi_translations" },
+      { column: "nextRuleId", table: "pli_tv_pm_bi_rules" },
+      { column: "prevRuleId", table: "pli_tv_pm_bi_rules" },
+    ],
   },
   {
     name: "pli_tv_pm_categories",
