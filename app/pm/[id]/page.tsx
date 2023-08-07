@@ -1,8 +1,8 @@
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined } from "@ant-design/icons";
 import { getXataClient } from "@xata";
 import { IKImage } from "@components";
 import styles from "./page.module.css";
-import Link from 'next/link';
+import Link from "next/link";
 
 const xata = getXataClient();
 
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 // Multiple versions of this page will be statically generated
 // using the `params` returned by `generateStaticParams`
-export default async function Page({ params }: any) {
+export default async function PmBiPage({ params }: any) {
   const { id } = params;
 
   const rule = await xata.db.pli_tv_pm_bi_rules.read(id);
@@ -49,14 +49,14 @@ export default async function Page({ params }: any) {
     content.translation = translationsMap.get("g0l04t8").translation;
   }
 
-  const src = `tr:w-1100,h-800,fo-auto/${process.env.NEXT_PUBLIC_IK_PM_BI_DIR}/${imgId}.png`;
-
   return (
     <>
-    <nav className={styles.nav}>
-      <Link href="/"> <HomeOutlined style={{ fontSize: 36, color: "#606" }} /></Link>
-     
-    </nav>
+      <nav className={styles.nav}>
+        <Link href="/">
+          {" "}
+          <HomeOutlined style={{ fontSize: 36, color: "#606" }} />
+        </Link>
+      </nav>
       <main className={styles.main}>
         <hgroup className={styles.hgroup}>
           <h1>{title}</h1>
@@ -69,7 +69,13 @@ export default async function Page({ params }: any) {
         </div>
         <div>
           <div className={styles.imgWrapper}>
-            <IKImage src={src} width={1100} height={800} alt="np002.png" />
+            <IKImage
+              path={`${process.env.NEXT_PUBLIC_IK_PM_BI_DIR}/${imgId}.png`}
+              transformations="tr:w-1100,h-800,fo-auto"
+              width={1100}
+              height={800}
+              alt="np002.png"
+            />
           </div>
         </div>
         <p>{ruleText}</p>
