@@ -1,9 +1,8 @@
-import { HomeOutlined } from "@ant-design/icons";
 import { getXataClient } from "@xata";
 import { IKImage } from "@components";
 import styles from "./page.module.css";
-import Link from "next/link";
-
+import { Nav } from "@/app/components/Nav";
+import { EnterOutlined, RightOutlined, LeftOutlined } from "@ant-design/icons";
 const xata = getXataClient();
 
 // Return a list of `params` to populate the [slug] dynamic segment
@@ -23,7 +22,26 @@ export default async function PmBiPage({ params }: any) {
   const { id } = params;
 
   const rule = await xata.db.pli_tv_pm_bi_rules.read(id);
-  const { title, imgId, rule: ruleText } = rule as any;
+  const { title, imgId, rule: ruleText, nextRuleId, prevRuleId } = rule as any;
+
+  const navItems = [
+    {
+      id: `nav-pm-${prevRuleId.id}`,
+      href: `/pm/${prevRuleId.id}`,
+      Icon: LeftOutlined,
+    },
+    {
+      id: `nav-pm-${nextRuleId.id}`,
+      href: `/pm/${nextRuleId.id}`,
+      Icon: RightOutlined,
+    },
+    {
+      id: "home",
+      href: "/pm/bi",
+      Icon: EnterOutlined,
+      styles: { marginTop: 2 },
+    },
+  ];
 
   const translations = await xata.db.pli_tv_pm_bi_translations
     .filter({ ruleId: id, language: "en" })
@@ -50,36 +68,29 @@ export default async function PmBiPage({ params }: any) {
   }
 
   return (
-    <>
-      <nav className={styles.nav}>
-        <Link href="/">
-          {" "}
-          <HomeOutlined style={{ fontSize: 36, color: "#606" }} />
-        </Link>
-      </nav>
+    <div>
+      <Nav navItems={navItems} />
       <main className={styles.main}>
         <hgroup className={styles.hgroup}>
           <h1>{title}</h1>
         </hgroup>
         <div className={styles.meta}>
-          <small>Translator: {content.translator}</small>
+          <small>Artwork: Ven. Yodha, Translation: {content.translator}</small>
         </div>
-        <div className={styles.description}>
+
+        <div className={styles.imgWrapper}>
+          <IKImage
+            path={`${process.env.NEXT_PUBLIC_IK_PM_BI_DIR}/${imgId}.png`}
+            transformations="tr:w-880,h-600,fo-auto"
+            fill={true}
+            alt={id}
+          />
+        </div>
+        <div className={styles.rule}>
+          <p>{ruleText}</p>
           <p>{content.translation}</p>
         </div>
-        <div>
-          <div className={styles.imgWrapper}>
-            <IKImage
-              path={`${process.env.NEXT_PUBLIC_IK_PM_BI_DIR}/${imgId}.png`}
-              transformations="tr:w-1100,h-800,fo-auto"
-              width={1100}
-              height={800}
-              alt="np002.png"
-            />
-          </div>
-        </div>
-        <p>{ruleText}</p>
       </main>
-    </>
+    </div>
   );
 }

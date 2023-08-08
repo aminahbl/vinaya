@@ -4,6 +4,7 @@
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
+  border: 1px solid rgba(var(--card-border-rgb), 0.075);
 }
 
 .card span {
@@ -23,6 +24,26 @@
   font-size: 0.9rem;
   line-height: 1.5;
   max-width: 30ch;
+}
+
+.disabled {
+  position: relative;
+  background: rgba(var(--card-rgb), 0.05);
+  cursor: not-allowed;
+}
+
+.disabled::after {
+  content: "unavailable";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 0.25rem 0.5rem;
+  background: rgba(160, 160, 160, 0.1);
+  border-radius: var(--border-radius);
+}
+
+.disabled img {
+  filter: blur(3px);
 }
 
 /* Enable hover only on non-touch devices */

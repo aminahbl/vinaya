@@ -1,10 +1,10 @@
 import { MenuCard } from "@components";
-import styles from "./MenuCardSection.module.css";
+import styles from "./MenuCards.module.css";
 import { getXataClient } from "@xata";
 
 const xata = getXataClient();
 
-const MenuCardSection = async () => {
+const MenuCards = async () => {
   const data = await xata.db.pli_tv_pm_bi_rules.getFirst();
 
   const SUPPORTED_EXPLORATIONS = {
@@ -27,12 +27,12 @@ const MenuCardSection = async () => {
   };
 
   return (
-    <section className={styles.grid}>
+    <div className={styles.grid}>
       {Object.values(SUPPORTED_EXPLORATIONS).map((option) => (
         <MenuCard option={option} key={option.id} />
       ))}
-    </section>
+    </div>
   );
 };
 
-export default MenuCardSection;
+export default MenuCards;

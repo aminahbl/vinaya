@@ -19,22 +19,21 @@ const MenuCard = ({ option }: { option: any }) => {
                 path={imgPath}
                 alt={imgAlt}
                 transformations={transformations}
-                width={550}
-                height={330}
+                fill={true}
               />
             </div>
           </Link>
         </article>
       ) : (
-        <article className={`${styles.card} disabled`}>
+        <article className={`${styles.card} ${styles.disabled}`}>
           <h2>{title}</h2>
           <div className={styles.imgWrapper}>
             <IKImage
               path={imgPath}
               alt={imgAlt}
               transformations={transformations}
-              width={550}
-              height={330}
+              fill={true}
+              // height={330}
             />
           </div>
         </article>

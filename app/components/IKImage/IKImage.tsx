@@ -1,13 +1,15 @@
 import { useMemo } from "react";
-import Image, { type ImageProps } from "next/image";
+import Image from "next/image";
+import styles from "./IKImage.module.css";
 import crypto from "crypto";
 
 interface Props {
   path: string;
   transformations: string;
   alt: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
+  fill?: boolean;
   className?: string;
 }
 
@@ -33,7 +35,7 @@ function getIKImgSrc(
  * - The `src` prop is built of transformation params and image location. eg. "tr:w-800:q-75/pli-tv-bi-vb/np001.png".
  */
 const IKImage = (props: Props) => {
-  const { path, transformations, alt, width, height, ...rest } = props;
+  const { path, transformations, alt, width, height, fill, className } = props;
 
   const imgSrc = useMemo(
     () => getIKImgSrc(path, transformations),
@@ -41,7 +43,16 @@ const IKImage = (props: Props) => {
   );
 
   return (
-    <Image src={imgSrc} alt={alt} width={width} height={height} {...rest} />
+    <div className={styles.imageContainer}>
+      <Image
+        src={imgSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        fill={fill}
+      />
+    </div>
   );
 };
 

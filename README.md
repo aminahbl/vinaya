@@ -64,6 +64,13 @@ Adapted from SuttaCentral ids.
 | Prisma   | Site hosting                                        |
 
 
+#### Libraries, tools & tips
+
+- **Icons:** 
+  - [Ant Design Icons](https://ant.design/components/icon)
+  - [Ant Design Icons usage](https://www.kindacode.com/article/how-to-use-ant-design-icons-with-react-js/)
+- **background css:** [css-dividers](https://devsnap.me/css-dividers)
+- **next/image fix**: https://dev.to/felixhaeberle/responsive-fix-for-the-next-js-image-component-1351
 
 
 ### Learn More about Next.js
