@@ -19,7 +19,7 @@ export default function RootLayout({
     <ReactQueryProvider>
       <html lang="en">
         <head>
-          <link rel="icon" href="./favicon.ico?v=2" />
+          <link rel="icon" href="./favicon.ico?v=3" />
         </head>
         <body className={inter.className}>{children}</body>
       </html>
