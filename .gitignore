@@ -38,3 +38,6 @@ next-env.d.ts
 .env
 
 data-to-xata.ts
+
+# Local Netlify folder
+.netlify
