@@ -8,49 +8,35 @@ import type {
 
 const tables = [
   {
-    name: "pli_tv_pm_bi_rules",
-    columns: [
-      { name: "title", type: "string" },
-      {
-        name: "category",
-        type: "link",
-        link: { table: "pli_tv_pm_categories" },
-      },
-      { name: "rule", type: "text" },
-      { name: "imgId", type: "string" },
-      {
-        name: "nextRuleId",
-        type: "link",
-        link: { table: "pli_tv_pm_bi_rules" },
-      },
-      {
-        name: "prevRuleId",
-        type: "link",
-        link: { table: "pli_tv_pm_bi_rules" },
-      },
-    ],
-    revLinks: [
-      { column: "ruleId", table: "pli_tv_pm_bi_translations" },
-      { column: "nextRuleId", table: "pli_tv_pm_bi_rules" },
-      { column: "prevRuleId", table: "pli_tv_pm_bi_rules" },
-    ],
+    name: "lookup_root_language",
+    columns: [{ name: "language", type: "string" }],
+    revLinks: [{ column: "rootLanguage", table: "rules" }],
   },
   {
-    name: "pli_tv_pm_categories",
-    columns: [
-      { name: "title", type: "string" },
-      { name: "position", type: "int" },
-    ],
-    revLinks: [{ column: "category", table: "pli_tv_pm_bi_rules" }],
+    name: "lookup_tradition",
+    columns: [{ name: "name", type: "string" }],
+    revLinks: [{ column: "tradition", table: "rules" }],
   },
   {
-    name: "pli_tv_pm_bi_translations",
+    name: "lookup_rule_class",
     columns: [
-      { name: "translator", type: "link", link: { table: "translators" } },
-      { name: "ruleId", type: "link", link: { table: "pli_tv_pm_bi_rules" } },
-      { name: "translation", type: "text" },
-      { name: "language", type: "link", link: { table: "languages" } },
+      { name: "title", type: "string" },
+      { name: "sortId", type: "int" },
     ],
+    revLinks: [{ column: "class", table: "rules" }],
+  },
+  {
+    name: "lookup_rule_set",
+    columns: [{ name: "title", type: "string" }],
+    revLinks: [{ column: "set", table: "rules" }],
+  },
+  {
+    name: "lookup_translation_language",
+    columns: [
+      { name: "language", type: "string" },
+      { name: "localName", type: "string" },
+    ],
+    revLinks: [{ column: "language", table: "rule_translations" }],
   },
   {
     name: "translators",
@@ -58,42 +44,99 @@ const tables = [
       { name: "name", type: "string" },
       { name: "displayName", type: "string" },
     ],
-    revLinks: [{ column: "translator", table: "pli_tv_pm_bi_translations" }],
+    revLinks: [{ column: "translator", table: "rule_translations" }],
   },
   {
-    name: "languages",
+    name: "rule_parallels",
     columns: [
-      { name: "language", type: "string" },
-      { name: "localName", type: "string" },
+      { name: "ruleId", type: "link", link: { table: "rules" } },
+      { name: "parallelRuleId", type: "link", link: { table: "rules" } },
     ],
-    revLinks: [{ column: "language", table: "pli_tv_pm_bi_translations" }],
+  },
+  {
+    name: "rule_translations",
+    columns: [
+      { name: "ruleId", type: "link", link: { table: "rules" } },
+      {
+        name: "language",
+        type: "link",
+        link: { table: "lookup_translation_language" },
+      },
+      { name: "translator", type: "link", link: { table: "translators" } },
+      { name: "translation", type: "text" },
+    ],
+  },
+  {
+    name: "rules",
+    columns: [
+      {
+        name: "rootLanguage",
+        type: "link",
+        link: { table: "lookup_root_language" },
+      },
+      { name: "tradition", type: "link", link: { table: "lookup_tradition" } },
+      { name: "set", type: "link", link: { table: "lookup_rule_set" } },
+      { name: "class", type: "link", link: { table: "lookup_rule_class" } },
+      { name: "title", type: "string" },
+      { name: "rule", type: "text" },
+      { name: "imgId", type: "string" },
+      { name: "nextRuleId", type: "link", link: { table: "rules" } },
+      { name: "prevRuleId", type: "link", link: { table: "rules" } },
+      { name: "crossSetRule", type: "link", link: { table: "rules" } },
+    ],
+    revLinks: [
+      { column: "ruleId", table: "rule_parallels" },
+      { column: "parallelRuleId", table: "rule_parallels" },
+      { column: "ruleId", table: "rule_translations" },
+      { column: "nextRuleId", table: "rules" },
+      { column: "prevRuleId", table: "rules" },
+      { column: "crossSetRule", table: "rules" },
+    ],
   },
 ] as const;
 
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type PliTvPmBiRules = InferredTypes["pli_tv_pm_bi_rules"];
-export type PliTvPmBiRulesRecord = PliTvPmBiRules & XataRecord;
+export type LookupRootLanguage = InferredTypes["lookup_root_language"];
+export type LookupRootLanguageRecord = LookupRootLanguage & XataRecord;
 
-export type PliTvPmCategories = InferredTypes["pli_tv_pm_categories"];
-export type PliTvPmCategoriesRecord = PliTvPmCategories & XataRecord;
+export type LookupTradition = InferredTypes["lookup_tradition"];
+export type LookupTraditionRecord = LookupTradition & XataRecord;
 
-export type PliTvPmBiTranslations = InferredTypes["pli_tv_pm_bi_translations"];
-export type PliTvPmBiTranslationsRecord = PliTvPmBiTranslations & XataRecord;
+export type LookupRuleClass = InferredTypes["lookup_rule_class"];
+export type LookupRuleClassRecord = LookupRuleClass & XataRecord;
+
+export type LookupRuleSet = InferredTypes["lookup_rule_set"];
+export type LookupRuleSetRecord = LookupRuleSet & XataRecord;
+
+export type LookupTranslationLanguage =
+  InferredTypes["lookup_translation_language"];
+export type LookupTranslationLanguageRecord = LookupTranslationLanguage &
+  XataRecord;
 
 export type Translators = InferredTypes["translators"];
 export type TranslatorsRecord = Translators & XataRecord;
 
-export type Languages = InferredTypes["languages"];
-export type LanguagesRecord = Languages & XataRecord;
+export type RuleParallels = InferredTypes["rule_parallels"];
+export type RuleParallelsRecord = RuleParallels & XataRecord;
+
+export type RuleTranslations = InferredTypes["rule_translations"];
+export type RuleTranslationsRecord = RuleTranslations & XataRecord;
+
+export type Rules = InferredTypes["rules"];
+export type RulesRecord = Rules & XataRecord;
 
 export type DatabaseSchema = {
-  pli_tv_pm_bi_rules: PliTvPmBiRulesRecord;
-  pli_tv_pm_categories: PliTvPmCategoriesRecord;
-  pli_tv_pm_bi_translations: PliTvPmBiTranslationsRecord;
+  lookup_root_language: LookupRootLanguageRecord;
+  lookup_tradition: LookupTraditionRecord;
+  lookup_rule_class: LookupRuleClassRecord;
+  lookup_rule_set: LookupRuleSetRecord;
+  lookup_translation_language: LookupTranslationLanguageRecord;
   translators: TranslatorsRecord;
-  languages: LanguagesRecord;
+  rule_parallels: RuleParallelsRecord;
+  rule_translations: RuleTranslationsRecord;
+  rules: RulesRecord;
 };
 
 const DatabaseClient = buildClient();

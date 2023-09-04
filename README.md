@@ -28,6 +28,12 @@ The data schema is stored in `data/v0/schema.json` which is maintained in and ge
 npm run update-schema
 ```
 
+or to run the generator alone:
+
+```sh
+npx tsx ./data/v0/generateSchema.js
+```
+
 Data updates can be sent to the database with:
 
 ```sh
@@ -39,7 +45,7 @@ npm run data-to-xata
 Adapted from SuttaCentral ids.
 
 - **anatomy:**
-  `{root lang}-{tradition}-{rule set}-{rule category #}-{class prefix + rule number}`
+  `{root lang}-{tradition}-{rule set}-{rule class_sort_id}-{class prefix + rule number}`
 - **example**: `pli-tv-bi-1-pj001`
 - **example explantion**:
   | Part | Value |
@@ -47,7 +53,7 @@ Adapted from SuttaCentral ids.
   | lang | Pali |
   | tradition | Theravada |
   | rule set | bhikkhuni |
-  | rule class no. | 1 |
+  | rule class sort id | 1 |
   | class prefix | |
   | & rule # with | pj001 |
   | trailing zeros | |
