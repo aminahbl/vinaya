@@ -5,7 +5,7 @@ import { getXataClient } from "@xata";
 const xata = getXataClient();
 
 const MenuCards = async () => {
-  const data = await xata.db.pli_tv_pm_bi_rules.getFirst();
+  const data = await xata.db.rules.getFirst();
 
   const SUPPORTED_EXPLORATIONS = {
     pmBi: {
